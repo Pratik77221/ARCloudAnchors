@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ARCloudAnchor.unity
     guid: f4ef287ee8d4f49e7939c35a458596b3
   m_configObjects:
@@ -13,5 +13,9 @@ EditorBuildSettings:
       type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 79f371bd6ffef4fb68c5e6025f22f69f,
       type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 4c8176fafae8ff14f85ad03468521c43,
+      type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 92ecd2e551c304604a0d2d16a523c356,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 95f12457f8c1dc14b82adfd681583bec,
       type: 2}
