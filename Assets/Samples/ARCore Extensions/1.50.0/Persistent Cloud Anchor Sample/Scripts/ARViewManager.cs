@@ -132,11 +132,6 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         public Button CancelAnchorNameButton;
 
         /// <summary>
-        /// The button to toggle AR plane visibility.
-        /// </summary>
-        public Button TogglePlanesButton;
-
-        /// <summary>
         /// Helper message for <see cref="NotTrackingReason.Initializing">.</see>
         /// </summary>
         private const string _initializingMessage = "Tracking is being initialized.";
@@ -251,11 +246,6 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// Index of the anchor currently being named (-1 if none).
         /// </summary>
         private int _currentNamingAnchorIndex = -1;
-
-        /// <summary>
-        /// Current visibility state of AR planes.
-        /// </summary>
-        private bool _planesVisible = true;
 
         /// <summary>
         /// The promises for the async resolving operations, if any.
@@ -404,15 +394,6 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         }
 
         /// <summary>
-        /// Callback handling "Toggle Planes" button click event.
-        /// </summary>
-        public void OnTogglePlanesButtonClicked()
-        {
-            _planesVisible = !_planesVisible;
-            UpdatePlaneVisibility(_planesVisible);
-        }
-
-        /// <summary>
         /// The Unity Awake() method.
         /// </summary>
         public void Awake()
@@ -444,13 +425,6 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             // Setup individual anchor naming UI
             if (IndividualAnchorNamePanel != null)
                 IndividualAnchorNamePanel.SetActive(false);
-            
-            // Setup toggle planes button
-            if (TogglePlanesButton != null)
-            {
-                TogglePlanesButton.gameObject.SetActive(true);
-            }
-            _planesVisible = true;
             
             UpdatePlaneVisibility(true);
             UpdateAnchorCountDisplay();

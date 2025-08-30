@@ -67,11 +67,6 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         public Button ClearSelectionButton;
 
         /// <summary>
-        /// The button to toggle AR plane visibility.
-        /// </summary>
-        public Button TogglePlanesButton;
-
-        /// <summary>
         /// Cached Cloud Anchor history data used to fetch the Cloud Anchor Id using
         /// the index given by multi-selection dropdown.
         /// </summary>
@@ -81,11 +76,6 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// Cached active color for interactable buttons.
         /// </summary>
         private Color _activeColor;
-
-        /// <summary>
-        /// Tracks whether AR planes are currently visible.
-        /// </summary>
-        private bool _planesVisible = true;
 
         /// <summary>
         /// Callback handling the validation of the input field.
@@ -172,27 +162,31 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         }
 
         /// <summary>
-        /// Callback handling "Toggle Planes" button click event.
+        /// Delete all stored Cloud Anchor history without confirmation.
+        /// This method clears all saved anchors from local storage.
         /// </summary>
-        public void OnTogglePlanesButtonClicked()
+        public void DeleteAllAnchors()
         {
-            _planesVisible = !_planesVisible;
-            UpdatePlaneVisibility(_planesVisible);
-        }
-
-        /// <summary>
-        /// Updates the visibility of AR planes.
-        /// </summary>
-        /// <param name="visible">True to show planes, false to hide them.</param>
-        private void UpdatePlaneVisibility(bool visible)
-        {
-            if (Controller != null && Controller.PlaneManager != null)
-            {
-                foreach (var plane in Controller.PlaneManager.trackables)
-                {
-                    plane.gameObject.SetActive(visible);
-                }
-            }
+            // Clear the stored history from PlayerPrefs
+            PlayerPrefs.DeleteKey("PersistentCloudAnchors");
+            PlayerPrefs.Save();
+            
+            // Clear the local history cache
+            _history.Collection.Clear();
+            
+            // Clear the UI
+            Multiselection.Options.Clear();
+            Multiselection.Deselect();
+            InputField.text = string.Empty;
+            
+            // Update the resolving set
+            Controller.ResolvingSet.Clear();
+            
+            // Update button states
+            SetButtonActive(ResolveButton, false);
+            SetButtonActive(SelectAllButton, false);
+            
+            Debug.Log("All Cloud Anchor history deleted from local storage.");
         }
 
         /// <summary>

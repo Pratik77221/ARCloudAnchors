@@ -1324,7 +1324,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Begin hosting
+  m_Text: Technician
 --- !u!222 &300331649
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1403,7 +1403,6 @@ MonoBehaviour:
   IndividualAnchorNameField: {fileID: 599628281}
   ConfirmAnchorNameButton: {fileID: 435429386}
   CancelAnchorNameButton: {fileID: 990524456}
-  TogglePlanesButton: {fileID: 0}
 --- !u!1 &323121665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1731,7 +1730,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -456.65234, y: 39.48498}
+  m_SizeDelta: {x: -265.87546, y: 39.702877}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &417424304
 MonoBehaviour:
@@ -4383,7 +4382,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1225789858}
         m_TargetAssemblyTypeName: Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors.ResolveMenuManager,
           Assembly-CSharp
-        m_MethodName: OnClearAllAnchorsButtonClicked
+        m_MethodName: DeleteAllAnchors
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4956,7 +4955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1134576668
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5391,7 +5390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1225789857
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5432,7 +5431,6 @@ MonoBehaviour:
   ResolveButton: {fileID: 939437629}
   SelectAllButton: {fileID: 575236014}
   ClearSelectionButton: {fileID: 1863288982}
-  TogglePlanesButton: {fileID: 0}
 --- !u!1 &1230221961
 GameObject:
   m_ObjectHideFlags: 0
@@ -5608,7 +5606,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1362718965
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6406,7 +6404,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Begin resolving
+  m_Text: Operator
 --- !u!222 &1514066064
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7141,7 +7139,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchoredPosition: {x: 0, y: 446}
   m_SizeDelta: {x: 0, y: 400}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1592205123
@@ -8293,7 +8291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1946047199
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8403,8 +8401,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: To power this session, Google will process visual data from your camera.
-    <b><color=#1A73E8FF>Learn more</color></b>
+  m_Text: To power this session, we will process visual data from your camera. <b><color=#1A73E8FF>Learn
+    more</color></b>
 --- !u!222 &1971279327
 CanvasRenderer:
   m_ObjectHideFlags: 0
