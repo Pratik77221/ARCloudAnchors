@@ -1388,15 +1388,10 @@ MonoBehaviour:
   MapQualityIndicatorPrefab: {fileID: 1627662587363780, guid: 91e902992b96240738192b547cbbed35,
     type: 3}
   InstructionBar: {fileID: 1552466036}
-  NamePanel: {fileID: 1506610948}
-  InputFieldWarning: {fileID: 259432001}
-  NameField: {fileID: 1114270407}
   InstructionText: {fileID: 344135561}
   TrackingHelperText: {fileID: 1611667728}
   DebugText: {fileID: 645328230}
-  SaveButton: {fileID: 2054425934}
   ShareButton: {fileID: 269160621}
-  FinishHostingButton: {fileID: 1645604900}
   ClearAnchorsButton: {fileID: 814249073}
   AnchorCountText: {fileID: 1731278695}
   IndividualAnchorNamePanel: {fileID: 1459782234}
@@ -6271,7 +6266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1506610949
 RectTransform:
   m_ObjectHideFlags: 0

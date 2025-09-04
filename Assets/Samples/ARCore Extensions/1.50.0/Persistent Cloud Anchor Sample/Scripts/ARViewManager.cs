@@ -57,21 +57,6 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         public GameObject InstructionBar;
 
         /// <summary>
-        /// The UI panel that allows the user to name the Cloud Anchor.
-        /// </summary>
-        public GameObject NamePanel;
-
-        /// <summary>
-        /// The UI element that displays warning message for invalid input name.
-        /// </summary>
-        public GameObject InputFieldWarning;
-
-        /// <summary>
-        /// The input field for naming Cloud Anchor.
-        /// </summary>
-        public InputField NameField;
-
-        /// <summary>
         /// The instruction text in the top instruction bar.
         /// </summary>
         public Text InstructionText;
@@ -87,20 +72,11 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         public Text DebugText;
 
         /// <summary>
-        /// The button to save the typed name.
-        /// </summary>
-        public Button SaveButton;
-
-        /// <summary>
         /// The button to save current cloud anchor id into clipboard.
         /// </summary>
         public Button ShareButton;
 
         /// <summary>
-        /// The button to finish hosting all anchors and save them.
-        /// </summary>
-        public Button FinishHostingButton;
-
         /// <summary>
         /// The button to clear all placed anchors.
         /// </summary>
@@ -264,7 +240,6 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// </summary>
         private List<IEnumerator> _resolveCoroutines = new List<IEnumerator>();
 
-        private Color _activeColor;
         private AndroidJavaClass _versionInfo;
 
         /// <summary>
@@ -275,38 +250,6 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         {
             return new Pose(Controller.MainCamera.transform.position,
                 Controller.MainCamera.transform.rotation);
-        }
-
-        /// <summary>
-        /// Callback handling the validation of the input field.
-        /// </summary>
-        /// <param name="inputString">The current value of the input field.</param>
-        public void OnInputFieldValueChanged(string inputString)
-        {
-            // Cloud Anchor name should only contains: letters, numbers, hyphen(-), underscore(_).
-            var regex = new Regex("^[a-zA-Z0-9-_]*$");
-            InputFieldWarning.SetActive(!regex.IsMatch(inputString));
-            SetSaveButtonActive(!InputFieldWarning.activeSelf && inputString.Length > 0);
-        }
-
-        /// <summary>
-        /// Callback handling "Ok" button click event for input field.
-        /// </summary>
-        public void OnSaveButtonClicked()
-        {
-            // Update all hosted anchors with the entered name prefix
-            string baseName = NameField.text;
-            for (int i = 0; i < _hostedCloudAnchors.Count; i++)
-            {
-                var anchor = _hostedCloudAnchors[i];
-                anchor.Name = $"{baseName}_{i + 1}";
-                _hostedCloudAnchors[i] = anchor;
-                Controller.SaveCloudAnchorHistory(anchor);
-            }
-
-            DebugText.text = $"Saved {_hostedCloudAnchors.Count} Cloud Anchors with base name: {baseName}";
-            ShareButton.gameObject.SetActive(true);
-            NamePanel.SetActive(false);
         }
 
         /// <summary>
@@ -398,7 +341,6 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// </summary>
         public void Awake()
         {
-            _activeColor = SaveButton.GetComponentInChildren<Text>().color;
             _versionInfo = new AndroidJavaClass("android.os.Build$VERSION");
         }
 
@@ -412,13 +354,9 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             ClearAllAnchors();
             
             InstructionBar.SetActive(true);
-            NamePanel.SetActive(false);
-            InputFieldWarning.SetActive(false);
             ShareButton.gameObject.SetActive(false);
             
             // Setup UI for multiple anchors
-            if (FinishHostingButton != null)
-                FinishHostingButton.gameObject.SetActive(Controller.Mode == PersistentCloudAnchorsController.ApplicationMode.Hosting);
             if (ClearAnchorsButton != null)
                 ClearAnchorsButton.gameObject.SetActive(Controller.Mode == PersistentCloudAnchorsController.ApplicationMode.Hosting);
             
@@ -761,8 +699,19 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             if (_hostedCloudAnchors.Count > 0)
             {
                 ShareButton.gameObject.SetActive(true);
-                NamePanel.SetActive(true);
-                NameField.text = $"MultiAnchor_{System.DateTime.Now:yyyyMMdd_HHmmss}";
+                // Automatically save with timestamp-based names instead of showing name panel
+                for (int i = 0; i < _hostedCloudAnchors.Count; i++)
+                {
+                    var anchor = _hostedCloudAnchors[i];
+                    // Use individual name if available, otherwise use timestamp-based naming
+                    if (string.IsNullOrEmpty(anchor.Name))
+                    {
+                        anchor.Name = $"Anchor_{System.DateTime.Now:yyyyMMdd_HHmmss}_{i + 1}";
+                    }
+                    _hostedCloudAnchors[i] = anchor;
+                    Controller.SaveCloudAnchorHistory(anchor);
+                }
+                DebugText.text = $"All {_hostedCloudAnchors.Count} anchors saved successfully!";
             }
         }
 
@@ -1255,12 +1204,6 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         private void DoHideInstructionBar()
         {
             InstructionBar.SetActive(false);
-        }
-
-        private void SetSaveButtonActive(bool active)
-        {
-            SaveButton.enabled = active;
-            SaveButton.GetComponentInChildren<Text>().color = active ? _activeColor : Color.gray;
         }
     }
 }
